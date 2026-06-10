@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Техническая инструкция по регистрации аккаунтов</title>
+    <!-- Подключаем иконки FontAwesome (встраиваем через SVG, но для простоты и автономности используем официальный надежный CDN, либо чистый CSS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px 10px;
+        }
+        .container {
+            max-width: 750px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        h1 {
+            color: #1a365d;
+            border-bottom: 3px solid #3182ce;
+            padding-bottom: 15px;
+            font-size: 22px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2 {
+            color: #2b6cb0;
+            font-size: 16px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            background: #ebf8ff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 4px solid #3182ce;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        h3 {
+            color: #4a5568;
+            font-size: 15px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        p, li {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        strong {
+            color: #1a202c;
+        }
+        .forbidden {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .allowed {
+            color: #38a169;
+            font-weight: bold;
+        }
+        .important {
+            background-color: #f7fafc;
+            border: 1px dashed #cbd5e0;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .important i {
+            color: #3182ce;
+            margin-top: 3px;
+        }
+        
+        /* Блок профиля (кнопка + подпись) */
+        .profile-section {
+            text-align: center;
+            margin: 40px 0 15px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+            border: 1px solid #edf2f7;
+        }
+        .profile-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #3182ce;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+        }
+        .profile-btn:hover {
+            background-color: #2b6cb0;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(49, 130, 206, 0.3);
+        }
+        .profile-btn:active {
+            transform: translateY(1px);
+        }
+        .platform-text {
+            display: block;
+            font-size: 11px;
+            color: #a0aec0;
+            margin-top: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 11px;
+            color: #a0aec0;
+            border-top: 1px solid #edf2f7;
+            padding-top: 20px;
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px 5px;
+            }
+            .container {
+                padding: 20px 15px;
+                border-radius: 8px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            h2 {
+                font-size: 14px;
+            }
+            p, li {
+                font-size: 13px;
+            }
+            .profile-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i class="fa-solid fa-file-shield"></i> Техническая инструкция по регистрации аккаунтов</h1>
+
+    <h2><i class="fa-solid fa-gears"></i> 1. Подготовка софта и сети</h2>
+    <p>Использование обычных браузеров (Chrome, Яндекс, Firefox) или простых расширений для смены User-Agent <span class="forbidden">ЗАПРЕЩЕНО</span> — это приводит к мгновенной блокировке аккаунтов фрод-системами.</p>
+    
+    <ul>
+        <li><strong>Работа только через Антидетект-браузер:</strong> Все регистрации делаются строго через специальный софт (например, <em>AdsPower, Multilogin, Dolphin{anty}</em>). Под каждый новый аккаунт создается отдельный, чистый профиль. Софт полностью изолирует и маскирует параметры железа (Canvas, WebGL, аудио-отпечатки и WebRTC).</li>
+        <li><strong>Прокси-серверы:</strong>
+            <ul>
+                <li><strong>Google / Yahoo:</strong> Используются только <strong>резидентские (Residential)</strong> прокси с оплатой за трафик (GB) и обязательной ротацией. Жесткое правило: <span class="allowed">1 IP = 1 аккаунт</span>.</li>
+                <li><strong>Outlook:</strong> Допускаются качественные датацентровые (Datacenter) прокси, но резидентские остаются в приоритете.</li>
+            </ul>
+        </li>
+        <li><strong>Номера телефонов:</strong>
+            <ul>
+                <li><span class="forbidden">Запрещено:</span> Покупать виртуальные VoIP-номера (вроде Twilio) — защитные алгоритмы систем их мгновенно отсекают.</li>
+                <li><span class="allowed">Разрешено:</span> Брать номера на проверенных агрегаторах (<em>SMS-Activate, 5SIM</em> и др.). При покупке выбирать вкладку конкретного сервиса (Google или Outlook) и использовать только физические пулы номеров (<strong>Non-VoIP</strong>).</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2><i class="fa-solid fa-user-plus"></i> 2. Процесс регистрации</h2>
+    
+    <h3><i class="fa-solid fa-cookie-bite"></i> Набивка куки (Критически важно)</h3>
+    <p>Перед тем как переходить на страницу создания почты, необходимо открыть в профиле браузера 3–5 крупных сайтов (популярные новостные порталы, маркетплейсы). Профиль должен нагуглить историю и накопить файлы куки, чтобы выглядеть «живым» для антифрод-систем.</p>
+
+    <h3><i class="fa-solid fa-pen-to-square"></i> Заполнение данных</h3>
+    <ol>
+        <li><strong>Личные данные:</strong> Имена и фамилии берутся строго реальные (используйте генераторы имен под целевую страну прокси). Возраст — в диапазоне от 25 до 45 лет. Пароли — только сложные случайные генерации.</li>
+        <li><strong>Имитация ввода:</strong> Вставка текста целиком через Ctrl+V палится алгоритмами. Вводить данные нужно либо вручную, либо используя встроенную функцию антидетекта «Вставить как человек» (эмуляция реальной печати клавиатуры).</li>
+        <li><strong>Паузы:</strong> Между шагами регистрации обязательно делайте задержки в 10–20 секунд. Слишком быстрая скорость считывается роботом.</li>
+        <li><strong>Ввод телефона:</strong> Номер из SMS-сервиса запрашивается и вводится только тогда, когда система не дает продолжить без верификации.</li>
+    </ol>
+
+    <h2><i class="fa-solid fa-triangle-exclamation"></i> 3. Особенности платформ</h2>
+    <ul>
+        <li><strong>Google (Gmail):</strong> Самый жесткий контроль. Требует чистейших прокси и медленных, естественных движений.</li>
+        <li><strong>Outlook (Microsoft):</strong> Может позволить создать аккаунт без запроса номера, но при попытке отправить первое письмо или при повторном входе через 24 часа гарантированно выкинет проверку по SMS. Номера для верификации должны быть под рукой заранее.</li>
+        <li><strong>Yahoo:</strong> Запрашивает телефон практически в 100% случаев на первом этапе.</li>
+    </ul>
+
+    <h2><i class="fa-solid fa-fire"></i> 4. Прогрев аккаунтов (Отлежка)</h2>
+    <p>Свежезарегистрированный аккаунт нельзя сразу пускать в массовую работу или спам.</p>
+    <ul>
+        <li><strong>День 1:</strong> Регистрация, привязка резервного ящика / включение двухфакторной аутентификации (2FA), чтение приветственного письма от системы. Закрытие профиля.</li>
+        <li><strong>День 2–4:</strong> Полная отлежка (аккаунт вообще не трогаем).</li>
+        <li><strong>День 5:</strong> Вход, подписка на 1–2 безопасные информационные рассылки (крупные СМИ, Википедия).</li>
+        <li><strong>День 7:</strong> Аккаунт готов к минимальной работе. Повышать нагрузку нужно плавно (начиная с 3–5 писем в день).</li>
+    </ul>
+
+    <div class="important">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <div>
+            <strong>Важное правило:</strong> Все данные (Логин, Пароль, Резервная почта, ID профиля в антидетекте и использованный гео-прокси) сразу же без задержек заносятся в общую отчетную таблицу.
+        </div>
+    </div>
+
+    <!-- Блок с кнопкой профиля и подписью платформы -->
+    <div class="profile-section">
+        <a href="https://funpay.com/users/18496104/" target="_blank" class="profile-btn">
+            <i class="fa-solid fa-user-check"></i> ZevokMe
+        </a>
+        <span class="platform-text">FunPay</span>
+    </div>
+
+    <div class="footer">
+        Техническая инструкция по регистрации аккаунтов • 2026
+    </div>
+</div>
+
+</body>
+</html>
