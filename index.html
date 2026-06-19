@@ -3,246 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Техническая инструкция по регистрации аккаунтов</title>
-    <!-- Подключаем иконки FontAwesome (встраиваем через SVG, но для простоты и автономности используем официальный надежный CDN, либо чистый CSS) -->
+    <title>Гайд по масштабируемой регистрации почт | ZevokMe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --bg-main: #0a0e17;
+            --bg-card: #121824;
+            --bg-code: #1a2334;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #9d4edd;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #242f47;
+            --warn-color: #ff3366;
+            --success-color: #00ff88;
+            --funpay-orange: #ffb703;
+        }
+
         * {
             box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background-color: #f0f4f8;
             margin: 0;
-            padding: 20px 10px;
+            padding: 0;
         }
-        .container {
-            max-width: 750px;
-            margin: 20px auto;
-            background: #ffffff;
-            padding: 35px 25px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 60px;
         }
-        h1 {
-            color: #1a365d;
-            border-bottom: 3px solid #3182ce;
-            padding-bottom: 15px;
-            font-size: 22px;
-            margin-top: 0;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 51, 102, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.2); }
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        .header-top {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        h2 {
-            color: #2b6cb0;
-            font-size: 16px;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            background: #ebf8ff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border-left: 4px solid #3182ce;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        h3 {
-            color: #4a5568;
-            font-size: 15px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        p, li {
-            font-size: 14px;
-            color: #4a5568;
-        }
-        ul, ol {
-            padding-left: 20px;
-            margin-bottom: 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        strong {
-            color: #1a202c;
-        }
-        .forbidden {
-            color: #e53e3e;
-            font-weight: bold;
-        }
-        .allowed {
-            color: #38a169;
-            font-weight: bold;
-        }
-        .important {
-            background-color: #f7fafc;
-            border: 1px dashed #cbd5e0;
-            padding: 15px;
-            margin: 25px 0;
-            border-radius: 8px;
-            display: flex;
+            justify-content: space-between;
             align-items: flex-start;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
         }
-        .important i {
-            color: #3182ce;
-            margin-top: 3px;
-        }
-        
-        /* Блок профиля (кнопка + подпись) */
-        .profile-section {
-            text-align: center;
-            margin: 40px 0 15px 0;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-            border: 1px solid #edf2f7;
-        }
-        .profile-btn {
+
+        .author-tag {
+            color: var(--accent-purple);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: #3182ce;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
-        }
-        .profile-btn:hover {
-            background-color: #2b6cb0;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px rgba(49, 130, 206, 0.3);
-        }
-        .profile-btn:active {
-            transform: translateY(1px);
-        }
-        .platform-text {
-            display: block;
-            font-size: 11px;
-            color: #a0aec0;
-            margin-top: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 11px;
-            color: #a0aec0;
-            border-top: 1px solid #edf2f7;
-            padding-top: 20px;
         }
 
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px 5px;
-            }
-            .container {
-                padding: 20px 15px;
-                border-radius: 8px;
-            }
-            h1 {
-                font-size: 18px;
-            }
-            h2 {
-                font-size: 14px;
-            }
-            p, li {
-                font-size: 13px;
-            }
-            .profile-btn {
-                width: 100%;
-                justify-content: center;
-                padding: 14px;
-            }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .funpay-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--funpay-orange), #fb8500);
+            color: #0a0e17;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(251, 133, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .funpay-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(251, 133, 0, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 800px;
+            border-left: 2px solid var(--accent-cyan);
+            padding-left: 15px;
+            margin-top: 15px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        section:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2 i {
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin: 24px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        p {
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 20px;
+            padding-left: 5px;
+        }
+
+        li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        li::before {
+            content: "\f105";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 5px;
+            color: var(--accent-purple);
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .code-container {
+            background-color: var(--bg-code);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .code-header {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header span i {
+            margin-right: 5px;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #a9b1d6;
+        }
+
+        .keyword { color: #bb9af7; }
+        .function { color: #7aa2f7; }
+        .string { color: #9ece6a; }
+        .comment { color: #565f89; font-style: italic; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background-color: rgba(26, 35, 52, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            background-color: rgba(26, 35, 52, 0.8);
+            border-color: var(--accent-purple);
+        }
+
+        .service-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.hard { background-color: rgba(255, 51, 102, 0.15); color: var(--warn-color); border: 1px solid var(--warn-color); }
+        .badge.medium { background-color: rgba(157, 77, 221, 0.15); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+        .badge.easy { background-color: rgba(0, 255, 136, 0.15); color: var(--success-color); border: 1px solid var(--success-color); }
+
+        .warning-block {
+            border: 1px solid var(--warn-color);
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05), transparent);
+            animation: glowPulse 4s infinite ease-in-out;
+        }
+
+        .warning-block h2 {
+            color: var(--warn-color);
+        }
+
+        .warning-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 51, 102, 0.1);
+        }
+
+        .warning-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .header-top { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .funpay-btn { width: 100%; justify-content: center; }
+            section { padding: 20px; }
+            .services-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1><i class="fa-solid fa-file-shield"></i> Техническая инструкция по регистрации аккаунтов</h1>
-
-    <h2><i class="fa-solid fa-gears"></i> 1. Подготовка софта и сети</h2>
-    <p>Использование обычных браузеров (Chrome, Яндекс, Firefox) или простых расширений для смены User-Agent <span class="forbidden">ЗАПРЕЩЕНО</span> — это приводит к мгновенной блокировке аккаунтов фрод-системами.</p>
-    
-    <ul>
-        <li><strong>Работа только через Антидетект-браузер:</strong> Все регистрации делаются строго через специальный софт (например, <em>AdsPower, Multilogin, Dolphin{anty}</em>). Под каждый новый аккаунт создается отдельный, чистый профиль. Софт полностью изолирует и маскирует параметры железа (Canvas, WebGL, аудио-отпечатки и WebRTC).</li>
-        <li><strong>Прокси-серверы:</strong>
-            <ul>
-                <li><strong>Google / Yahoo:</strong> Используются только <strong>резидентские (Residential)</strong> прокси с оплатой за трафик (GB) и обязательной ротацией. Жесткое правило: <span class="allowed">1 IP = 1 аккаунт</span>.</li>
-                <li><strong>Outlook:</strong> Допускаются качественные датацентровые (Datacenter) прокси, но резидентские остаются в приоритете.</li>
-            </ul>
-        </li>
-        <li><strong>Номера телефонов:</strong>
-            <ul>
-                <li><span class="forbidden">Запрещено:</span> Покупать виртуальные VoIP-номера (вроде Twilio) — защитные алгоритмы систем их мгновенно отсекают.</li>
-                <li><span class="allowed">Разрешено:</span> Брать номера на проверенных агрегаторах (<em>SMS-Activate, 5SIM</em> и др.). При покупке выбирать вкладку конкретного сервиса (Google или Outlook) и использовать только физические пулы номеров (<strong>Non-VoIP</strong>).</li>
-            </ul>
-        </li>
-    </ul>
-
-    <h2><i class="fa-solid fa-user-plus"></i> 2. Процесс регистрации</h2>
-    
-    <h3><i class="fa-solid fa-cookie-bite"></i> Набивка куки (Критически важно)</h3>
-    <p>Перед тем как переходить на страницу создания почты, необходимо открыть в профиле браузера 3–5 крупных сайтов (популярные новостные порталы, маркетплейсы). Профиль должен нагуглить историю и накопить файлы куки, чтобы выглядеть «живым» для антифрод-систем.</p>
-
-    <h3><i class="fa-solid fa-pen-to-square"></i> Заполнение данных</h3>
-    <ol>
-        <li><strong>Личные данные:</strong> Имена и фамилии берутся строго реальные (используйте генераторы имен под целевую страну прокси). Возраст — в диапазоне от 25 до 45 лет. Пароли — только сложные случайные генерации.</li>
-        <li><strong>Имитация ввода:</strong> Вставка текста целиком через Ctrl+V палится алгоритмами. Вводить данные нужно либо вручную, либо используя встроенную функцию антидетекта «Вставить как человек» (эмуляция реальной печати клавиатуры).</li>
-        <li><strong>Паузы:</strong> Между шагами регистрации обязательно делайте задержки в 10–20 секунд. Слишком быстрая скорость считывается роботом.</li>
-        <li><strong>Ввод телефона:</strong> Номер из SMS-сервиса запрашивается и вводится только тогда, когда система не дает продолжить без верификации.</li>
-    </ol>
-
-    <h2><i class="fa-solid fa-triangle-exclamation"></i> 3. Особенности платформ</h2>
-    <ul>
-        <li><strong>Google (Gmail):</strong> Самый жесткий контроль. Требует чистейших прокси и медленных, естественных движений.</li>
-        <li><strong>Outlook (Microsoft):</strong> Может позволить создать аккаунт без запроса номера, но при попытке отправить первое письмо или при повторном входе через 24 часа гарантированно выкинет проверку по SMS. Номера для верификации должны быть под рукой заранее.</li>
-        <li><strong>Yahoo:</strong> Запрашивает телефон практически в 100% случаев на первом этапе.</li>
-    </ul>
-
-    <h2><i class="fa-solid fa-fire"></i> 4. Прогрев аккаунтов (Отлежка)</h2>
-    <p>Свежезарегистрированный аккаунт нельзя сразу пускать в массовую работу или спам.</p>
-    <ul>
-        <li><strong>День 1:</strong> Регистрация, привязка резервного ящика / включение двухфакторной аутентификации (2FA), чтение приветственного письма от системы. Закрытие профиля.</li>
-        <li><strong>День 2–4:</strong> Полная отлежка (аккаунт вообще не трогаем).</li>
-        <li><strong>День 5:</strong> Вход, подписка на 1–2 безопасные информационные рассылки (крупные СМИ, Википедия).</li>
-        <li><strong>День 7:</strong> Аккаунт готов к минимальной работе. Повышать нагрузку нужно плавно (начиная с 3–5 писем в день).</li>
-    </ul>
-
-    <div class="important">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        <div>
-            <strong>Важное правило:</strong> Все данные (Логин, Пароль, Резервная почта, ID профиля в антидетекте и использованный гео-прокси) сразу же без задержек заносятся в общую отчетную таблицу.
+    <header>
+        <div class="header-top">
+            <div>
+                <span class="author-tag"><i class="fa-solid fa-user-shield"></i> Авторство: ZevokMe</span>
+                <h1>Масштабная регистрация почтовых аккаунтов</h1>
+            </div>
+            <a href="https://funpay.com/users/18496104/" target="_blank" class="funpay-btn">
+                <i class="fa-solid fa-shop"></i> Профиль FunPay
+            </a>
         </div>
-    </div>
+        <div class="subtitle">Техническое руководство по развертыванию инфраструктуры обхода Anti-Bot и Anti-Fraud систем целевых сервисов.</div>
+    </header>
 
-    <!-- Блок с кнопкой профиля и подписью платформы -->
-    <div class="profile-section">
-        <a href="https://funpay.com/users/18496104/" target="_blank" class="profile-btn">
-            <i class="fa-solid fa-user-check"></i> ZevokMe
-        </a>
-        <span class="platform-text">FunPay</span>
-    </div>
+    <main>
+        <section style="animation-delay: 0.1s;">
+            <h2><i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i> Аппаратная изоляция (Обход бот-систем)</h2>
+            <p>Большие сервисы (Google, Outlook, Yandex) считывают ваш цифровой отпечаток (fingerprint). Если регистрировать аккаунты из обычного браузера или через стандартный режим инкогнито, антифлуд-системы моментально свяжут сессии между собой и заблокируют сеть.</p>
+            
+            <h3><i class="fa-solid fa-screwdriver-wrench"></i> Инструменты для изоляции сессий:</h3>
+            <ul>
+                <li><strong>Антидетект-браузеры (Dolphin{anty}, AdsPower, Multilogin):</strong> Они подменяют на уровне исходного кода браузера параметры Canvas, WebGL, аудио-отпечатки, WebRTC и заголовки User-Agent. Каждая вкладка выглядит для целевого сервиса как новое физическое устройство.</li>
+                <li><strong>Автоматизация через библиотеки (Playwright / Selenium + Stealth плагины):</strong> Используется для написания скриптов-регистраторов. Обязательно применение патчей, скрывающих переменную <code>navigator.webdriver</code>.</li>
+            </ul>
 
-    <div class="footer">
-        Техническая инструкция по регистрации аккаунтов • 2026
-    </div>
-</div>
+            <h3><i class="fa-solid fa-sliders"></i> Глубокая настройка отпечатка:</h3>
+            <p>В настройках профилей необходимо настраивать <strong>WebGL и Canvas</strong> (шумирование хэша картинок), <strong>AudioContext</strong> (уникализация аудио-паспорта), а также список системных <strong>шрифтов</strong>. Параметры экрана (Screen & Viewport) обязаны идеально соотноситься с размером окна браузера, а язык и часовой пояс — на 100% совпадать с геопозицией вашего прокси-сервера.</p>
+        </section>
+
+        <section style="animation-delay: 0.2s;">
+            <h2><i class="fa-solid fa-network-wired" style="color: var(--accent-cyan);"></i> Сетевой контур (Прокси)</h2>
+            <p>Тип и качество IP-адреса — главный фактор, определяющий, потребует ли сервис номер телефона при регистрации.</p>
+            <ul>
+                <li><strong>Запрещено использовать:</strong> Бесплатные прокси, пакетные серверные (Datacenter) IP. У них нулевой уровень доверия (Trust Score), они находятся в черных списках почтовых систем. При попытке зайти с такого IP вы получите мгновенное требование номера или бесконечную капчу.</li>
+                <li><strong>Необходимо использовать:</strong> 
+                    <br>1. <em>Мобильные прокси (с ротацией по ссылке/времени):</em> Обладают максимальным доверием. На одном IP-адресе оператора связи могут сидеть тысячи реальных людей.
+                    <br>2. <em>Резидентные прокси (Residential):</em> IP-адреса реальных домашних провайдеров. Оплата обычно идет за гигабайт трафика.
+                </li>
+            </ul>
+            <p><strong>Важно:</strong> Контролируйте пассивный отпечаток ОС (p0f/MTU). Если ваш User-Agent заявляет Windows, а структура сетевых пакетов указывает на Linux-сервер — сессия мгновенно помечается как подозрительная. Утечки через WebRTC должны быть переведены в режим эмуляции локального IP, но не отключены полностью.</p>
+        </section>
+
+        <section style="animation-delay: 0.3s;">
+            <h2><i class="fa-solid fa-comment-sms" style="color: var(--accent-cyan);"></i> Регистрация с номером (SMS-активаторы)</h2>
+            <p>Если сервис жестко требует привязку телефона, этот этап автоматизируется через API сервисов временных номеров. К проверенным шлюзам относятся <strong>SMS-Activate</strong>, <strong>5Sim</strong>, <strong>Grizzly SMS</strong> и <strong>SmsMan</strong>.</p>
+            
+            <p>При использовании SMS страна номера телефона <strong>обязана</strong> совпадать со страной прокси. Использование индонезийского номера на немецком IP-адресе ведет к моментальной блокировке.</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span><i class="fa-brands fa-python"></i> meridian/sms_handler.py</span>
+                    <span>Python 3.x</span>
+                </div>
+<pre><code><span class="keyword">import</span> requests
+<span class="keyword">import</span> time
+
+<span class="keyword">class</span> <span class="function">SMSActivateAPI</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, api_key: str):
+        self.url = <span class="string">"https://api.sms-activate.org/stubs/handler_api.php"</span>
+        self.key = api_key
+
+    <span class="keyword">def</span> <span class="function">get_number</span>(self, service: str, country: int) -> tuple:
+        params = {
+            <span class="string">'api_key'</span>: self.key,
+            <span class="string">'action'</span>: <span class="string">'getNumber'</span>,
+            <span class="string">'service'</span>: service,
+            <span class="string">'country'</span>: country
+        }
+        response = requests.get(self.url, params=params).text
+        <span class="keyword">if</span> <span class="string">"ACCESS_NUMBER"</span> <span class="keyword">in</span> response:
+            <span class="keyword">return</span> response.split(<span class="string">":"</span>)[1], response.split(<span class="string">":"</span>)[2]
+        <span class="keyword">return</span> <span class="keyword">None</span>, response
+
+    <span class="keyword">def</span> <span class="function">wait_for_code</span>(self, activation_id: str, max_wait=120) -> str:
+        params = {
+            <span class="string">'api_key'</span>: self.key,
+            <span class="string">'action'</span>: <span class="string">'getStatus'</span>,
+            <span class="string">'id'</span>: activation_id
+        }
+        start_time = time.time()
+        <span class="keyword">while</span> time.time() - start_time < max_wait:
+            response = requests.get(self.url, params=params).text
+            <span class="keyword">if</span> <span class="string">"STATUS_OK"</span> <span class="keyword">in</span> response:
+                <span class="keyword">return</span> response.split(<span class="string">":"</span>)[1]
+            time.sleep(5)
+        <span class="keyword">return</span> <span class="keyword">None</span></code></pre>
+            </div>
+        </section>
+
+        <section style="animation-delay: 0.4s;">
+            <h2><i class="fa-solid fa-user-ninja" style="color: var(--accent-cyan);"></i> Регистрация без номера & Эмуляция поведения</h2>
+            <p>Чтобы создать аккаунт без привязки телефона и избежать последующих блокировок, необходимо сымитировать поведение идеального живого пользователя:</p>
+            <ul>
+                <li><strong>Прогрев прокси:</strong> Перед переходом на страницу регистрации откройте 2-3 нейтральных сайта (новости, поисковики), чтобы набить файлы cookie в профиле браузера.</li>
+                <li><strong>Использование "чистых" путей:</strong> На Яндексе при регистрации выбирайте опцию «У меня нет телефона» (через контрольный вопрос). В Outlook выбирайте способ авторизации через резервную почту.</li>
+                <li><strong>Эмуляция ввода (Human-like ввод):</strong> Роботизированный ввод текста моментально фиксируется внутренними скриптами защиты. Символы должны вводиться с задержкой (от 50 до 150 мс между нажатиями) и эмуляцией движения мыши по кривым Безье.</li>
+            </ul>
+        </section>
+
+        <section style="animation-delay: 0.5s;">
+            <h2><i class="fa-solid fa-server" style="color: var(--accent-cyan);"></i> Специфика целевых сервисов</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h4>
+                        <span class="service-title"><i class="fa-brands fa-google" style="color: #ea4335;"></i> Google</span>
+                        <span class="badge hard">Hard</span>
+                    </h4>
+                    <p>Требует телефон почти всегда. Окно «Пропустить» появляется только при регистрации через эмуляцию мобильного устройства (User-Agent Android) на чистейших резидентных IP.</p>
+                </div>
+                <div class="service-card">
+                    <h4>
+                        <span class="service-title"><i class="fa-brands fa-microsoft" style="color: #00a4ef;"></i> Outlook</span>
+                        <span class="badge medium">Medium</span>
+                    </h4>
+                    <p>Лоялен при создании, жесткий на первой авторизации. Позволяет регистрироваться через резервную почту. Используйте свои копеечные домены с Catch-All вместо публичных TempMail.</p>
+                </div>
+                <div class="service-card">
+                    <h4>
+                        <span class="service-title"><i class="fa-solid fa-y" style="color: #ff0000;"></i> Яндекс</span>
+                        <span class="badge easy">Easy</span>
+                    </h4>
+                    <p>Имеет кнопку «У меня нет телефона». Требует контрольный вопрос. Ответ на вопрос должен быть уникальным для каждой сессии, чтобы алгоритмы не связали сетку аккаунтов.</p>
+                </div>
+                <div class="service-card">
+                    <h4>
+                        <span class="service-title"><i class="fa-brands fa-yahoo" style="color: #6001d2;"></i> Yahoo</span>
+                        <span class="badge hard">Hard</span>
+                    </h4>
+                    <p>Самая агрессивная бот-система. Без номера телефона регистрация невозможна. Принимает номера ограниченного пула стран (лучше всего использовать США/Великобританию).</p>
+                </div>
+                <div class="service-card">
+                    <h4>
+                        <span class="service-title"><i class="fa-solid fa-font" style="color: #316497;"></i> Rambler</span>
+                        <span class="badge easy">Easy</span>
+                    </h4>
+                    <p>Номер не требует, запрашивает простую капчу. Низкий начальный траст: авторизация через IMAP без предварительного прогрева в веб-интерфейсе ведет к мгновенному блоку.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="warning-block" style="animation-delay: 0.6s;">
+            <h2>[ ❗ ] Критические точки контроля и подводные камни</h2>
+            
+            <div class="warning-item">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Миф о 100% обходе без номера</h3>
+                <p>Создать аккаунт Google (Gmail) абсолютно без номера телефона в промышленных масштабах сейчас невозможно. Если антифлуд-система видит массовую активность, она переводит форму в режим обязательной SMS-верификации. Окно пропуска доступно только для единичных сессий с идеальной репутацией.</p>
+            </div>
+
+            <div class="warning-item">
+                <h3><i class="fa-solid fa-eye-slash"></i> Теневой бан (Скрытые блоки)</h3>
+                <p>Если вы смогли зарегистрировать почту без номера, используя среднее качество прокси, аккаунт может уйти в скрытый блок. Вы сможете войти в панель, но при попытке отправить первое письмо система выдаст ошибку или заблокирует аккаунт до тех пор, пока вы не привяжете реальный номер телефона.</p>
+            </div>
+
+            <div class="warning-item">
+                <h3><i class="fa-solid fa-shield-halved"></i> Капча-ловушка</h3>
+                <p>Если при регистрации вы видите бесконечную или нечитаемую капчу (Arkose Labs, ReCaptcha v3) — это означает, что ваш IP-адрес или цифровой отпечаток <strong>уже скомпрометированы</strong>. Дальнейшая работа в этой сессии бессмысленна, аккаунт будет заблокирован в течение суток. Сессию нужно немедленно закрывать и менять IP.</p>
+            </div>
+
+            <div class="warning-item">
+                <h3><i class="fa-solid fa-chart-line"></i> Лимиты мобильных прокси</h3>
+                <p>При использовании мобильных прокси меняйте IP-адрес по ссылке (ротация) строго после каждой успешной регистрации или после двух неудачных попыток подряд. Повторная регистрация на том же IP без смены гарантирует принудительный запрос номера.</p>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>
